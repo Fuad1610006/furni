@@ -1,12 +1,12 @@
 import React from 'react';
-import CustomNavbar from '../CustomNavbar/customNavbar';
+import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import Testimonials from '../Testimonials/testimonials';
 
 function Services() {
 	return (
 		<>
-			<CustomNavbar />
+			<Header />
 
 			<div className="hero">
 				<div className="container">

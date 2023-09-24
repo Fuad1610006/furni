@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import CustomNavbar from '../CustomNavbar/customNavbar';
+import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import { Products } from '../api/Products';
 // import { useCart } from "react-use-cart";
 
 const Shop = props => {
 	const [productData, setProductData] = useState([]);
-	
-	
+
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -24,7 +24,7 @@ const Shop = props => {
 
 	return (
 		<>
-			<CustomNavbar />
+			<Header />
 
 			<div className="hero">
 				<div className="container">
@@ -54,9 +54,9 @@ const Shop = props => {
 									<img src={product.image} className="img-fluid product-thumbnail" />
 									<h3 className="product-title">{product.name}</h3>
 									<strong className="product-price">{product.price}</strong>
-							
+
 									<span className="icon-cross">
-										<img src="assets/images/cross.svg" className="img-fluid"/>
+										<img src="assets/images/cross.svg" className="img-fluid" />
 									</span>
 								</a>
 							</div>

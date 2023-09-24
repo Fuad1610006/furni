@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CustomNavbar from '../CustomNavbar/customNavbar';
+import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import Testimonials from '../Testimonials/testimonials';
 import { BlogData } from '../api/blog';
@@ -24,7 +24,7 @@ const BlogPage = props => {
 
 	return (
 		<>
-			<CustomNavbar />
+			<Header />
 
 			<div className="hero">
 				<div className="container">

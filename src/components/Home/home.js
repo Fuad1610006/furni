@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomNavbar from '../CustomNavbar/customNavbar';
+import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import Testimonials from '../Testimonials/testimonials';
 import Blog from '../Blog/blog';
@@ -7,7 +7,7 @@ import Blog from '../Blog/blog';
 function Home() {
 	return (
 		<>
-			<CustomNavbar />
+			<Header />
 
 			<div className="hero">
 				<div className="container">
@@ -221,12 +221,12 @@ function Home() {
 			</div>
 
 
-			
-						
-					
+
+
+
 
 			<Testimonials />
-  			<Blog />
+			<Blog />
 			<Footer />
 		</>
 	)

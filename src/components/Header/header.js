@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
+import { logout } from "../Admin/Auth/auth";
 // import './assets/css/style.css'; 
 // import './assets/css/bootstrap.min.css'; 
 // import './assets/css/tiny-slider.css'; 
 
-function CustomNavbar() {
+function Header() {
+
+  const [isSignedIn, setIsSignedIn] = useState(() => {
+    const userLogged = localStorage.getItem("access_token");
+    return userLogged || false;
+  });
+
+  const signout = () => {
+    setIsSignedIn(false);
+    logout();
+  }
+
+
   return (
     <nav className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
       <div className="container">
@@ -60,7 +73,7 @@ function CustomNavbar() {
 
           <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
             <li>
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/signin" className="nav-link">
                 <img src="assets/images/user.svg" alt="User" />
               </NavLink>
             </li>
@@ -76,4 +89,4 @@ function CustomNavbar() {
   );
 }
 
-export default CustomNavbar;
+export default Header;
