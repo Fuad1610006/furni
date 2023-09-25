@@ -85,7 +85,7 @@ function Header() {
               </NavLink>
               <div className="dropdown-menu">
                 {isSignedIn ? (
-                  <NavLink to="/signout" className="dropdown-item"  onClick={signout}>
+                  <NavLink to="/" className="dropdown-item"  onClick={signout}>
                     Sign out
                   </NavLink>
                 ) : (
