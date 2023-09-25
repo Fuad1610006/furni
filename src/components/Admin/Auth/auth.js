@@ -26,6 +26,7 @@ const register = async (data) => {
             url: SIGNUP_ENDPOINT,
             data: data
           });
+          console.log(response);
     } catch(e){
         console.log(e);
     }

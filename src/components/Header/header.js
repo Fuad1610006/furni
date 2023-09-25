@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from "../Admin/Auth/auth";
 // import './assets/css/style.css'; 
 // import './assets/css/bootstrap.min.css'; 
 // import './assets/css/tiny-slider.css'; 
 
 function Header() {
+  const navigate = useNavigate(); // Initialize navigate hook
 
   const [isSignedIn, setIsSignedIn] = useState(() => {
     const userLogged = localStorage.getItem("access_token");
@@ -15,6 +16,7 @@ function Header() {
   const signout = () => {
     setIsSignedIn(false);
     logout();
+    navigate('/'); // Navigate to the home component after signing out
   }
 
 
@@ -83,7 +85,7 @@ function Header() {
               </NavLink>
               <div className="dropdown-menu">
                 {isSignedIn ? (
-                  <NavLink to="/signout" className="dropdown-item">
+                  <NavLink to="/signout" className="dropdown-item"  onClick={signout}>
                     Sign out
                   </NavLink>
                 ) : (

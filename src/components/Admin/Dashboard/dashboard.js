@@ -9,6 +9,7 @@ function Dashboard() {
         return (
             <div>
                 <h1>Hi {userLogged.name},</h1>
+                <img src={`http://localhost/Furni/api/${userLogged.image}`} alt="" />
             </div>
         ); 
 }
