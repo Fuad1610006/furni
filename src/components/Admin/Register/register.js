@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './signin.css';
-import { login } from "../Auth/auth";
+import './register.css';
+import { register } from "../Auth/auth";
 
-function Signin() {
+function Register() {
     const navigate=useNavigate();
-    
+    let signup = async(inputs) => {
+        await register(inputs);
+        navigate('/signin');
+    }
+
     const [inputs, setInputs] = useState([]);
     const handleChange = (event) => {
         const name = event.target.name;
@@ -14,35 +17,26 @@ function Signin() {
         setInputs(values => ({...values, [name]: value}));
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        let check = await login(inputs);
-        if(check)
-            navigate('/');
-        else
-            alert("Sorry! Your email address or password is not correct.");
+        signup(inputs);
     }
-
     return (
         <div>
             <div className="row">
                 <div className="col-sm-6 offset-sm-3">
                     <form onSubmit={handleSubmit}>
                         <div className="container">
+                            <label for="uname"><b>Name</b></label>
+                            <input type="text" placeholder="Enter Full Name"  name="name" onChange={handleChange}/>
+                            
                             <label for="uname"><b>Email</b></label>
                             <input type="text" placeholder="Enter Email Address"  name="email" onChange={handleChange} required/>
 
                             <label for="psw"><b>Password</b></label>
                             <input type="password" placeholder="Enter Password" name="password" onChange={handleChange} required/>
 
-                            <button type="submit">Login</button>
-                            <label>
-                            <input type="checkbox" checked="checked" name="remember"/> Remember me
-                            </label>
-                        </div>
-
-                        <div className="container">
-                            <button type="button" className="cancelbtn">Cancel</button>
+                            <button type="submit">Register</button>
                         </div>
                     </form>
                 </div>
@@ -51,4 +45,4 @@ function Signin() {
     );
 }
 
-export default Signin;
+export default Register;

@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 
 function Dashboard() {
-    return (
-        <div>
-            <h1>This is dashboard</h1>
-        </div>
-    );
+        const userLogged = JSON.parse(localStorage.getItem("userdata"));
+        return (
+            <div>
+                <h1>Hi {userLogged.name},</h1>
+            </div>
+        ); 
 }
 
 export default Dashboard;

@@ -14,6 +14,7 @@ import Testimonials from './components/Testimonials/testimonials';
 import Services from './components/Services/services';
 import BlogPage from './components/BlogPage/blogPage';
 import Signin from './components/Admin/Signin/signin';
+import Register from './components/Admin/Register/register';
 import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
 import Dashboard from './components/Admin/Dashboard/dashboard';
@@ -33,17 +34,18 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blogPage" element={<BlogPage />} />
-          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/header" element={<Header />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/shop" element={<Shop />} />
+          {/* <Route path="/shop" element={<Shop />} /> */}
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/thankYou" element={<ThankYou />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/register" element={<Register />} />
           
           <Route
             path="/dashboard"
@@ -58,6 +60,14 @@ function App() {
             element={
               <Protected isSignedIn={isSignedIn}>
                 <Shop />
+              </Protected>
+            }
+          />
+           <Route
+            path="/cart"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Cart />
               </Protected>
             }
           />

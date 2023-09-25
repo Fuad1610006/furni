@@ -72,17 +72,36 @@ function Header() {
           </ul>
 
           <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-            <li>
-            <NavLink to="/signin" className="nav-link">
-                <img src="assets/images/user.svg" alt="User" />
-              </NavLink>
-            </li>
-            <li>
-            <NavLink to="/cart" className="nav-link">
+            <li className="nav-item dropdown">
+              <NavLink to="/cart" className="nav-link">
                 <img src="assets/images/cart.svg" alt="Cart" />
               </NavLink>
             </li>
+            <li className="nav-item dropdown">
+              <NavLink to="/signin" className="nav-link">
+                <img src="assets/images/user.svg" alt="User" />
+              </NavLink>
+              <div className="dropdown-menu">
+                {isSignedIn ? (
+                  <NavLink to="/signout" className="dropdown-item">
+                    Sign out
+                  </NavLink>
+                ) : (
+                  <>
+                    <NavLink to="/signin" className="dropdown-item">
+                      Sign in
+                    </NavLink>
+                    <NavLink to="/register" className="dropdown-item">
+                      Register
+                    </NavLink>
+                  </>
+                )}
+              </div>
+            </li>
           </ul>
+
+
+
         </div>
       </div>
     </nav>

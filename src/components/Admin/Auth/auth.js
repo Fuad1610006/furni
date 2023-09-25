@@ -8,8 +8,11 @@ const login = async (data) => {
         if(response.data.jwt){
             localStorage.setItem("access_token", response.data.jwt);
             localStorage.setItem("userdata", response.data.datas);
+        }else{
+           return false; 
         }
     } catch(e){
+        return false; 
         console.log(e);
     }
 }
