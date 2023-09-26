@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from "../Admin/Auth/auth";
+import { useCart } from 'react-use-cart'; // Import the useCart hook
 // import './assets/css/style.css'; 
 // import './assets/css/bootstrap.min.css'; 
-// import './assets/css/tiny-slider.css'; 
+
 
 function Header() {
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
 
   const [isSignedIn, setIsSignedIn] = useState(() => {
     const userLogged = localStorage.getItem("access_token");
@@ -16,9 +17,23 @@ function Header() {
   const signout = () => {
     setIsSignedIn(false);
     logout();
-    navigate('/'); // Navigate to the home component after signing out
+    navigate('/');
   }
 
+  const {
+    cartTotalItems, // Get the total number of items in the cart
+  } = useCart();
+
+  const itemCountStyles = {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    backgroundColor: '#ff0000', // Background color for the item count
+    color: '#fff', // Text color for the item count
+    borderRadius: '50%', // Make it a circle
+    padding: '4px 8px', // Adjust padding as needed
+    fontSize: '14px', // Adjust font size as needed
+  };
 
   return (
     <nav className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
@@ -82,10 +97,11 @@ function Header() {
             <li className="nav-item dropdown">
               <NavLink to="/signin" className="nav-link">
                 <img src="assets/images/user.svg" alt="User" />
+                {cartTotalItems > 0 && <span style={itemCountStyles} className="cart-item-count">{cartTotalItems}</span>}
               </NavLink>
               <div className="dropdown-menu">
                 {isSignedIn ? (
-                  <NavLink to="/" className="dropdown-item"  onClick={signout}>
+                  <NavLink to="/" className="dropdown-item" onClick={signout}>
                     Sign out
                   </NavLink>
                 ) : (

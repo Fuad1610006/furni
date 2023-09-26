@@ -27,7 +27,7 @@ function Signin() {
         <div>
             <div className="row">
                 <div className="col-sm-6 offset-sm-3">
-                    <form onSubmit={handleSubmit}>
+                    <form className="signin" onSubmit={handleSubmit}>
                         <div className="container">
                             <label for="uname"><b>Email</b></label>
                             <input type="text" placeholder="Enter Email Address"  name="email" onChange={handleChange} required/>
@@ -35,7 +35,7 @@ function Signin() {
                             <label for="psw"><b>Password</b></label>
                             <input type="password" placeholder="Enter Password" name="password" onChange={handleChange} required/>
 
-                            <button type="submit">Login</button>
+                            <button type="submit" className="submitBtn">Login</button>
                             <label>
                             <input type="checkbox" checked="checked" name="remember"/> Remember me
                             </label>

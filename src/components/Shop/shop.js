@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import '@fortawesome/fontawesome-svg-core/styles.css'; 
 import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import { Products } from '../api/Products';
-// import { useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 
-const Shop = props => {
+const Shop = (props) => {
 	const [productData, setProductData] = useState([]);
-
+	const { addItem } = useCart();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -35,13 +38,10 @@ const Shop = props => {
 							</div>
 						</div>
 						<div className="col-lg-7">
-
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 
 
 			<div className="untree_co-section product-section before-footer-section">
@@ -49,23 +49,35 @@ const Shop = props => {
 					<div className="row">
 						{productData.map((product, index) => (
 							<div className="col-12 col-md-4 col-lg-3 mb-5" key={index}>
-								<a className="product-item" href="#"
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										addItem(product);
+									}}
 								>
-									<img src={product.image} className="img-fluid product-thumbnail" />
-									<h3 className="product-title">{product.name}</h3>
-									<strong className="product-price">{product.price}</strong>
+									<a className="product-item" href="#">
+										<img src={product.image} className="img-fluid product-thumbnail" alt={product.name} />
+										<h3 className="product-title">{product.name}</h3>
+										<strong className="product-price"
+										style={{paddingRight: "5px"}}>{product.price}</strong>
+										<button
+											type="submit"
+											className="add-to-cart-button"
+											onClick={(e) => {
+												e.preventDefault();
+												addItem(product);
+											}}
+										>
+											<FontAwesomeIcon icon={faShoppingCart}  /> {/* Cart icon */}
+										</button>
+									</a>
 
-									<span className="icon-cross">
-										<img src="assets/images/cross.svg" className="img-fluid" />
-									</span>
-								</a>
+								</form>
 							</div>
 						))}
-
 					</div>
 				</div>
 			</div>
-
 
 			<Footer />
 		</>

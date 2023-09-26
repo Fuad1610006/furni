@@ -6,7 +6,7 @@ function Footer(){
         <div className="container relative">
 
             <div className="sofa-img">
-                <img src="assets/images/sofa.png" alt="Image 1" className="img-fluid"/>
+                <img src="assets/images/sofa.png" alt="Sofa" className="img-fluid"/>
             </div>
 
             <div className="row">
@@ -15,13 +15,13 @@ function Footer(){
                         <h3 className="d-flex align-items-center"><span className="me-1"><img src="assets/images/envelope-outline.svg" alt="Image 2" className="img-fluid"/></span><span>Subscribe to Newsletter</span></h3>
 
                         <form action="./" className="row g-3">
-                            <div className="col-auto">
+                            <div className="col-auto pb-4">
                                 <input type="text" className="form-control" placeholder="Enter your name"/>
                             </div>
-                            <div className="col-auto">
+                            <div className="col-auto pt-2">
                                 <input type="email" className="form-control" placeholder="Enter your email"/>
                             </div>
-                            <div className="col-auto">
+                            <div className="col-auto pt-2">
                                 <button className="btn btn-primary">
                                     <span className="fa fa-paper-plane"></span>
                                 </button>

@@ -34,7 +34,7 @@ function Register() {
         <div>
             <div className="row">
                 <div className="col-sm-6 offset-sm-3">
-                    <form onSubmit={handleSubmit}>
+                    <form className="register" onSubmit={handleSubmit}>
                         <div className="container">
                             <label for="uname"><b>Name</b></label>
                             <input type="text" placeholder="Enter Full Name" name="name" onChange={handleChange} />
@@ -48,7 +48,7 @@ function Register() {
                             <label for="psw"><b>Image</b></label>
                             <input type="file" className="form-control" name="image" onChange={onFileChange} />
 
-                            <button type="submit">Register</button>
+                            <button className="registerBtn" type="submit">Register</button>
                         </div>
                     </form>
                 </div>
