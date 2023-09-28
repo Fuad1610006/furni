@@ -18,7 +18,7 @@ function Blog(){
 
 					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 						<div className="post-entry">
-							<a href="./" className="post-thumbnail"><img src="assets/images/post-1.jpg" alt="Image 1" className="img-fluid"/></a>
+							<a href="./" className="post-thumbnail"><img src="assets/images/post-1.jpg" alt="post 1" className="img-fluid"/></a>
 							<div className="post-content-entry">
 								<h3><a href="./">First Time Home Owner Ideas</a></h3>
 								<div className="meta">
@@ -30,7 +30,7 @@ function Blog(){
 
 					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 						<div className="post-entry">
-							<a href="./" className="post-thumbnail"><img src="assets/images/post-2.jpg" alt="Image 2" className="img-fluid"/></a>
+							<a href="./" className="post-thumbnail"><img src="assets/images/post-2.jpg" alt="post 2" className="img-fluid"/></a>
 							<div className="post-content-entry">
 								<h3><a href="./">How To Keep Your Furniture Clean</a></h3>
 								<div className="meta">
@@ -42,7 +42,7 @@ function Blog(){
 
 					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
 						<div className="post-entry">
-							<a href="./" className="post-thumbnail"><img src="assets/images/post-3.jpg" alt="Image 3" className="img-fluid"/></a>
+							<a href="./" className="post-thumbnail"><img src="assets/images/post-3.jpg" alt="post 3" className="img-fluid"/></a>
 							<div className="post-content-entry">
 								<h3><a href="./">Small Space Furniture Apartment Ideas</a></h3>
 								<div className="meta">

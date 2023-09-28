@@ -55,7 +55,7 @@ const Shop = (props) => {
 										addItem(product);
 									}}
 								>
-									<a className="product-item" href="#">
+									<a className="product-item" href="./">
 										<img src={product.image} className="img-fluid product-thumbnail" alt={product.name} />
 										<h3 className="product-title">{product.name}</h3>
 										<strong className="product-price"

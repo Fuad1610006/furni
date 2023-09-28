@@ -37,7 +37,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/truck.svg" alt="Image- truck" className="imf-fluid" />
+									<img src="assets/images/truck.svg" alt="truck" className="imf-fluid" />
 								</div>
 								<h3>Fast &amp; Free Shipping</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -47,7 +47,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/bag.svg" alt="Image- bag" className="imf-fluid" />
+									<img src="assets/images/bag.svg" alt="bag" className="imf-fluid" />
 								</div>
 								<h3>Easy to Shop</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -57,7 +57,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/support.svg" alt="Image- support" className="imf-fluid" />
+									<img src="assets/images/support.svg" alt="support" className="imf-fluid" />
 								</div>
 								<h3>24/7 Support</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -67,7 +67,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/return.svg" alt="Image- return" className="imf-fluid" />
+									<img src="assets/images/return.svg" alt="return" className="imf-fluid" />
 								</div>
 								<h3>Hassle Free Returns</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -77,7 +77,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/truck.svg" alt="Image- truck" className="imf-fluid" />
+									<img src="assets/images/truck.svg" alt="truck" className="imf-fluid" />
 								</div>
 								<h3>Fast &amp; Free Shipping</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -87,7 +87,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/bag.svg" alt="Image- bag" className="imf-fluid" />
+									<img src="assets/images/bag.svg" alt="bag" className="imf-fluid" />
 								</div>
 								<h3>Easy to Shop</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -97,7 +97,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/support.svg" alt="Image- support" className="imf-fluid" />
+									<img src="assets/images/support.svg" alt="support" className="imf-fluid" />
 								</div>
 								<h3>24/7 Support</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -107,7 +107,7 @@ function Services() {
 						<div className="col-6 col-md-6 col-lg-3 mb-4">
 							<div className="feature">
 								<div className="icon">
-									<img src="assets/images/return.svg" alt="Image- return" className="imf-fluid" />
+									<img src="assets/images/return.svg" alt="return" className="imf-fluid" />
 								</div>
 								<h3>Hassle Free Returns</h3>
 								<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
@@ -139,7 +139,7 @@ function Services() {
 								<strong className="product-price">$50.00</strong>
 
 								<span className="icon-cross">
-									<img src="assets/images/cross.svg" className="img-fluid" />
+									<img src="assets/images/cross.svg" className="img-fluid" alt="cross"  />
 								</span>
 							</a>
 						</div>
@@ -151,7 +151,7 @@ function Services() {
 								<strong className="product-price">$78.00</strong>
 
 								<span className="icon-cross">
-									<img src="assets/images/cross.svg" className="img-fluid" />
+									<img src="assets/images/cross.svg" className="img-fluid"  alt="cross" />
 								</span>
 							</a>
 						</div>
