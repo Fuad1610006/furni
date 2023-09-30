@@ -1027,3 +1027,14 @@ textarea {
   border-radius: 50%;
   background: rgba(59, 93, 80, 0.2);
 }
+
+.cart-count-notification {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-color: #ff5733;
+  color: #fff;
+  font-size: 14px;
+  padding: 3px 8px;
+  border-radius: 50%;
+}
