@@ -41,7 +41,6 @@ export default function Product() {
         axios.post('http://localhost/Furni/create_product.php', inputs).then(function(response){
             console.log(response.data)
             getDatas();
-            if(response.data.status==1)
                 document.getElementById('modelbutton').click();
         });
     }

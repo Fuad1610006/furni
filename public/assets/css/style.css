@@ -1028,7 +1028,7 @@ textarea {
   background: rgba(59, 93, 80, 0.2);
 }
 
-.cart-count-notification {
+/* .cart-count-notification {
   position: absolute;
   top: 5px;
   right: 10px;
@@ -1037,4 +1037,4 @@ textarea {
   font-size: 14px;
   padding: 3px 8px;
   border-radius: 50%;
-}
+} */
