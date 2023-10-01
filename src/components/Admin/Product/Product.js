@@ -4,29 +4,18 @@ import Nav from "../Layout/Nav";
 import Footer from "../Layout/Footer";
 export default function Product() {
     const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [brands, setBrands] = useState([]);
     const [inputs, setInputs] = useState([]);
     useEffect(() => {
         getDatas();
     }, []);
     function getDatas() {
-        axios.get('http://localhost/Furni/crud/index_product.php').then(function(response) {
+        axios.get('http://localhost/Furni/index_product.php').then(function(response) {
             setProducts(response.data.data);
         });
     }
-    function getCategories() {
-        axios.get('http://localhost/Furni/crud/index_category.php').then(function(response) {
-            setCategories(response.data.data);
-        });
-    }
-    function getBrand() {
-        axios.get('http://localhost/Furni/crud/index_brand.php').then(function(response) {
-            setBrands(response.data.data);
-        });
-    }
+    
     const deleteUser = (id) => {
-        axios.delete(`http://localhost/Furni/crud/delete_product.php?id=${id}`).then(function(response){
+        axios.delete(`http://localhost/Furni/delete_product.php?id=${id}`).then(function(response){
             getDatas();
         });
     }
@@ -49,7 +38,7 @@ export default function Product() {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost/Furni/crud/create_product.php', inputs).then(function(response){
+        axios.post('http://localhost/Furni/create_product.php', inputs).then(function(response){
             console.log(response.data)
             getDatas();
             if(response.data.status==1)
@@ -57,9 +46,7 @@ export default function Product() {
         });
     }
     const clearData = ()=>{
-        getCategories();
-        getBrand();
-        setInputs(values => ({...values,"id":"","discount":"","price":"","specification":"", "name": "","image": "","short_description":"","long_description":"","brand_id":"","category_id":""}))
+        setInputs(values => ({...values,"id":"", "name": "","price":"","image": ""}))
     } 
 
 
@@ -67,7 +54,7 @@ export default function Product() {
 
     function getSingleProduct(id) {
         document.getElementById('modelbutton').click();
-        axios.get(`http://localhost/Furni/crud/single_product.php?id=${id}`).then(function(response) {
+        axios.get(`http://localhost/Furni/single_product.php?id=${id}`).then(function(response) {
             setInputs(response.data);
             setInputs(values => ({...values,"image":""}))
         });
@@ -96,8 +83,6 @@ export default function Product() {
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Brand</th>
                                     <th>Price</th>
                                     <th>Image</th>
                                     <th>Actions</th>
@@ -107,9 +92,7 @@ export default function Product() {
                                 {products.map((d, key) =>
                                     <tr key={key}>
                                         <td>{d.id}</td>
-                                        <td>{d.name}</td>
-                                        <td>{d.cname}</td>
-                                        <td>{d.bname}</td>
+                                        <td>{d.name}</td>  
                                         <td>{d.price}</td>
                                         <td><img src={d.image} alt="" width={50} /></td>
                                         <td>
@@ -142,58 +125,14 @@ export default function Product() {
                                                         <input value={inputs.id} type="hidden" name="id"/>
                                                     </div>
                                                 </div>
-                                                <div className="col-sm-3">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Category</label>
-                                                        <select className="form-control" name="category_id" onChange={handleChange}>
-                                                            <option value="" key="">Select Category</option>
-                                                            {categories.map((d, key) =>
-                                                                <option selected={d.id == inputs.category_id} value={d.id} key={key}>{d.name}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-3">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Brand</label>
-                                                        <select className="form-control" name="brand_id" onChange={handleChange}>
-                                                            <option value="" key="">Select Brand</option>
-                                                            {brands.map((d, key) =>
-                                                                <option selected={d.id == inputs.brand_id} value={d.id} key={key}>{d.name}</option>
-                                                            )}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Short Description</label>
-                                                        <textarea className="form-control" name="short_description" onChange={handleChange} value={inputs.short_description}></textarea>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Long Description</label>
-                                                        <textarea className="form-control" name="long_description" onChange={handleChange} value={inputs.long_description} ></textarea>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Specification</label>
-                                                        <textarea className="form-control" name="specification" onChange={handleChange} value={inputs.specification} ></textarea>
-                                                    </div>
-                                                </div>
+                                               
                                                 <div className="col-sm-4">
                                                     <div className="mb-3">
                                                         <label className="form-label">Price</label>
                                                         <input type="text" className="form-control" name="price" value={inputs.price} onChange={handleChange} />
                                                     </div>
                                                 </div>
-                                                <div className="col-sm-4">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Discount (%)</label>
-                                                        <input type="text" className="form-control" name="discount" value={inputs.discount} onChange={handleChange} />
-                                                    </div>
-                                                </div>
+                                                
                                                 <div className="col-sm-4">
                                                     <div className="mb-3">
                                                         <label className="form-label">Image</label>

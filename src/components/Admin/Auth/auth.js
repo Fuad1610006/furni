@@ -1,5 +1,5 @@
 import axios from 'axios';
-const SERVER_URL = "http://localhost/Furni/api";
+const SERVER_URL = "http://localhost/Furni/";
 
 const login = async (data) => {
     const LOGIN_ENDPOINT = `${SERVER_URL}/login.php`;

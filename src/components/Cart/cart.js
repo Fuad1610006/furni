@@ -3,7 +3,7 @@ import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import { useCart } from 'react-use-cart'; // Import useCart
 import { Link } from 'react-router-dom';
-// import { useCartContext } from '../Context/CartContext';
+
 
 function Cart() {
   const [couponCode, setCouponCode] = useState('');

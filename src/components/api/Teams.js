@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost/Furni/api';
+const BASE_URL = 'http://localhost/Furni/';
 
 export const Teams = async () => {
     try {
