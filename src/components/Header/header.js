@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../Admin/Auth/auth";
-import { useCart } from 'react-use-cart'; // Import the useCart hook
-// import './assets/css/style.css'; 
-// import './assets/css/bootstrap.min.css'; 
-
+import { useCart } from "react-use-cart";
 
 function Header() {
   const navigate = useNavigate();
@@ -17,12 +14,30 @@ function Header() {
   const signout = () => {
     setIsSignedIn(false);
     logout();
-    navigate('/');
-  }
+    navigate("/");
+  };
 
-  
+  const dropdownRef = useRef(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // Function to show the dropdown menu with a delay
+  const handleUserIconHover = () => {
+    // Show the dropdown menu immediately
+    setShowDropdown(true);
+  };
+
+  // Function to hide the dropdown menu after 3 seconds
+  const handleUserIconLeave = () => {
+    setTimeout(() => {
+      setShowDropdown(false);
+    }, 4850); // Hide dropdown after 3 seconds
+  };
+
   return (
-    <nav className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <nav
+      className="custom-navbar navbar navbar-expand-md navbar-dark bg-dark"
+      aria-label="Furni navigation bar"
+    >
       <div className="container">
         <a className="navbar-brand" href="./">
           Furni<span>.</span>
@@ -42,7 +57,7 @@ function Header() {
 
         <div className="collapse navbar-collapse" id="navbarsFurni">
           <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-            <li className="nav-item">
+          <li className="nav-item">
               <NavLink exact to="/" className="nav-link" activeClassName="active">
                 Home
               </NavLink>
@@ -76,40 +91,43 @@ function Header() {
 
           <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
             <li className="nav-item dropdown">
-              <NavLink to="/cart" className="nav-link">
+               <NavLink to="/cart" className="nav-link">
                 <img src="assets/images/cart.svg" alt="Cart" />
               </NavLink>
             </li>
             <li className="nav-item dropdown">
-              <NavLink to="/signin" className="nav-link">
+              <div
+                className="nav-link"
+                onMouseEnter={handleUserIconHover} // Add event handler for mouse enter
+                onMouseLeave={handleUserIconLeave} // Add event handler for mouse leave
+              >
                 <img src="assets/images/user.svg" alt="User" />
-              </NavLink>
-              <div className="dropdown-menu">
-                {isSignedIn ? (
-                  <>
-                  <NavLink to="/" className="dropdown-item" onClick={signout}>
-                    Sign out
-                  </NavLink>
-                  <NavLink to="/dashboard" className="dropdown-item">
-                  Dashboard
-                </NavLink>
-                </>
-                ) : (
-                  <>
-                    <NavLink to="/signin" className="dropdown-item">
-                      Sign in
-                    </NavLink>
-                    <NavLink to="/register" className="dropdown-item">
-                      Register
-                    </NavLink>
-                  </>
-                )}
               </div>
+              {showDropdown && (
+                <div className="dropdown-menu">
+                  {isSignedIn ? (
+                    <>
+                      <NavLink to="/" className="dropdown-item" onClick={signout}>
+                        Sign out
+                      </NavLink>
+                      <NavLink to="/dashboard" className="dropdown-item">
+                        Dashboard
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      <NavLink to="/signin" className="dropdown-item">
+                        Sign in
+                      </NavLink>
+                      <NavLink to="/register" className="dropdown-item">
+                        Register
+                      </NavLink>
+                    </>
+                  )}
+                </div>
+              )}
             </li>
           </ul>
-
-
-
         </div>
       </div>
     </nav>

@@ -1,9 +1,12 @@
+import React from 'react'
+import './layout.css';
 
 function Footer() {
     return (
-            <div className="mt-5 p-4 bg-dark text-white text-center">
-              <p>Footer</p>
-            </div>
-    ) 
+        <footer className="dashboard-footer">
+            &copy; 2023 Admin Panel Dashboard
+        </footer>
+    );
 }
+
 export default Footer;

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
-import Nav from "../Layout/Nav";
-import Footer from "../Layout/Footer";
+// import Nav from "../Layout/Nav";
+import Footer from "../Layout/footer";
 export default function Product() {
     const [products, setProducts] = useState([]);
     const [inputs, setInputs] = useState([]);
@@ -61,7 +61,7 @@ export default function Product() {
 
     return (
         <div>
-            <Nav/>
+            {/* <Nav/> */}
             <div className="container">
                 <div className="row">
                     <div className="col-12">

@@ -1,55 +1,52 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Nav from "../Layout/Nav";
-import Footer from "../Layout/Footer";
-
+import React from 'react';
+import Sidebar from '../Layout/sidebar';
+import Footer from '../Layout/footer';
 function Dashboard() {
     const userLogged = JSON.parse(localStorage.getItem("userdata"));
     return (
-        <>
-            <Nav/>
-            <div className="container mt-5">
-              <div className="row">
-                <div className="col-sm-4">
-                  <h2>About Me</h2>
-                  <h5>Photo of me:</h5>
-                  <div className="fakeimg">Fake Image</div>
-                  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-                  <h3 className="mt-4">Some Links</h3>
-                  <p>Lorem ipsum dolor sit ame.</p>
-                  <ul className="nav nav-pills flex-column">
-                    <li className="nav-item">
-                      <a className="nav-link active" href="#">Active</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">Link</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">Link</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                  </ul>
-                  <hr className="d-sm-none" />
-                </div>
-                <div className="col-sm-8">
-                  <h2>TITLE HEADING</h2>
-                  <h5>Title description, Dec 7, 2020</h5>
-                  <div className="fakeimg">Fake Image</div>
-                  <p>Some text..</p>
-                  <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <div>
+            <Sidebar />
 
-                  <h2 className="mt-5">TITLE HEADING</h2>
-                  <h5>Title description, Sep 2, 2020</h5>
-                  <div className="fakeimg">Fake Image</div>
-                  <p>Some text..</p>
-                  <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <div className="dashboard-content">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="#">
+                        Dashboard
+                    </a>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Profile
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div className="container mt-4">
+                    <h1>Welcome to the Admin Panel</h1>
+                    <p>This is a gorgeous admin panel dashboard with a sidebar and premium features.</p>
                 </div>
-              </div>
             </div>
+
             <Footer />
-        </>
+        </div>
     );
 }
 
