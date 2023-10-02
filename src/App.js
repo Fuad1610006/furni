@@ -36,7 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blogPage" element={<BlogPage />} />
-          {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route path="/cart" element={<Cart />} />
           <Route path="/header" element={<Header />} />
           <Route path="/footer" element={<Footer />} />
           {/* <Route path="/checkout" element={<Checkout />} /> */}
@@ -66,14 +66,14 @@ function App() {
               </Protected>
             }
           />
-           <Route
+           {/* <Route
             path="/cart"
             element={
               <Protected isSignedIn={isSignedIn}>
                 <Cart />
               </Protected>
             }
-          />
+          /> */}
           <Route
             path="/checkout"
             element={

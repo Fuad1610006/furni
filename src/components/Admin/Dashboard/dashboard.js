@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../Layout/sidebar';
-import Footer from '../Layout/footer';
+import Footer from '../Layout/Footer';
 function Dashboard() {
     const userLogged = JSON.parse(localStorage.getItem("userdata"));
     return (

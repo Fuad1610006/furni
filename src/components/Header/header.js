@@ -5,7 +5,7 @@ import { useCart } from "react-use-cart";
 
 function Header() {
   const navigate = useNavigate();
-
+  const { totalUniqueItems } = useCart();
   const [isSignedIn, setIsSignedIn] = useState(() => {
     const userLogged = localStorage.getItem("access_token");
     return userLogged || false;
@@ -30,7 +30,7 @@ function Header() {
   const handleUserIconLeave = () => {
     setTimeout(() => {
       setShowDropdown(false);
-    }, 4850); // Hide dropdown after 3 seconds
+    }, 6000); // Hide dropdown after 6 seconds
   };
 
   return (
@@ -93,6 +93,9 @@ function Header() {
             <li className="nav-item dropdown">
                <NavLink to="/cart" className="nav-link">
                 <img src="assets/images/cart.svg" alt="Cart" />
+                {totalUniqueItems > 0 && (
+                  <span className="cart-item-count">{totalUniqueItems}</span>
+                )}
               </NavLink>
             </li>
             <li className="nav-item dropdown">

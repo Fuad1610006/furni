@@ -7,12 +7,9 @@ import Footer from '../Footer/footer';
 import { Products } from '../api/Products';
 import { useCart } from 'react-use-cart';
 
-
 const Shop = (props) => {
   const [productData, setProductData] = useState([]);
-	 const [cartCount, setCartCount] = useState(0); 
-  const { addItem } = useCart();
-  
+  const { addItem, cartTotalItems } = useCart();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,13 +75,14 @@ const Shop = (props) => {
                     >
                       <FontAwesomeIcon icon={faShoppingCart} /> {/* Cart icon */}
                     </button>
+                    {/* Display cart count notification */}
+                    {cartTotalItems > 0 && (
+                      <div className="cart-count-notification">
+                        <span>{cartTotalItems}</span>
+                      </div>
+                    )}
                   </a>
                 </form>
-
-                {/* Display cart count notification */}
-                <div className="cart-count-notification">
-                  {cartCount > 0 && <span>{cartCount}</span>}
-                </div>
               </div>
             ))}
           </div>
