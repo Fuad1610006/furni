@@ -1,7 +1,7 @@
 import React from 'react'
 import './layout.css';
 
-function Footer() {
+function dashboardFooter() {
     return (
         <footer className="dashboard-footer">
             &copy; 2023 Admin Panel Dashboard
@@ -9,4 +9,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default dashboardFooter;

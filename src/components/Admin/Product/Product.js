@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 // import Nav from "../Layout/Nav";
-import Footer from "../Layout/Footer";
+import Footer from "../Layout/dashboardFooter";
 export default function Product() {
     const [products, setProducts] = useState([]);
     const [inputs, setInputs] = useState([]);
