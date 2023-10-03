@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #343a40;
+    background-color: #045e4b;
     padding-top: 20px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .dashboard-sidebar a:hover {
-    background-color: #495057;
+    background-color: #31b276;
 }
 
 .dashboard-user-image {
@@ -39,7 +39,7 @@
 
 /* Add styles for the footer */
 .dashboard-footer {
-    background-color: #343a40;
+    background-color:#045e4b;
     color: #ffffff;
     text-align: center;
     padding: 10px;
