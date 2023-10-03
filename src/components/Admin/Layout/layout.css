@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #045e4b;
+    background-color: #085a48;
     padding-top: 20px;
 }
 
@@ -39,7 +39,7 @@
 
 /* Add styles for the footer */
 .dashboard-footer {
-    background-color:#045e4b;
+    background-color:#03352b;
     color: #ffffff;
     text-align: center;
     padding: 10px;

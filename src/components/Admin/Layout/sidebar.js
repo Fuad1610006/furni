@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import the Link component from react-router-dom
 import './layout.css';
 
 function Sidebar() {
@@ -9,17 +10,22 @@ function Sidebar() {
             <div className="dashboard-user-image">
                 <img src={`http://localhost/Furni/${userLogged.image}`} alt="user" />
             </div>
-            <a className="navbar-brand" href="#"> {userLogged.name}</a>
+            <Link to="#" className="navbar-brand">
+                {userLogged.name}
+            </Link>
             <hr style={{ backgroundColor: '#ffffff' }} />
-            <a href="#" className="dashboard-nav-link">
+            <Link to="/Dashboard" className="dashboard-nav-link">
                 Admin Dashboard
-            </a>
-            <a href="./Product" className="dashboard-nav-link">
+            </Link>
+            <Link to="/product" className="dashboard-nav-link">
                 Product
-            </a>
-            <a href="./" className="dashboard-nav-link">
+            </Link>
+            <Link to="/shop" className="dashboard-nav-link">
+                Shop
+            </Link>
+            <Link to="/" className="dashboard-nav-link">
                 Home Page
-            </a>
+            </Link>
         </div>
     );
 }
