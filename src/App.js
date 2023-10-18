@@ -9,6 +9,7 @@ import Checkout from './components/Checkout/checkout';
 import Contact from './components/Contact/contact';
 import Home from './components/Home/home';
 import Shop from './components/Shop/shop';
+import Product from './components/Admin/Product/product';
 import ThankYou from './components/ThankYou/thankYou';
 import Testimonials from './components/Testimonials/testimonials';
 import Services from './components/Services/services';
@@ -17,7 +18,7 @@ import Signin from './components/Admin/Signin/signin';
 import Register from './components/Admin/Register/register';
 import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
-
+import Dashboard from './components/Admin/Dashboard/dashboard';
 function App() {
   
   const [isSignedIn, setIsSignedIn] = useState(() => {
@@ -59,6 +60,22 @@ function App() {
             element={
               <Protected isSignedIn={isSignedIn}>
                 <ThankYou />
+              </Protected>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Dashboard />
+              </Protected>
+            }
+          />
+          <Route
+            path="/product"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Product />
               </Protected>
             }
           />
