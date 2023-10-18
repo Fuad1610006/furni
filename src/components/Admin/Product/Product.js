@@ -9,13 +9,13 @@ export default function Product() {
         getDatas();
     }, []);
     function getDatas() {
-        axios.get('http://localhost/Furni/index_product.php').then(function(response) {
+        axios.get(`${global.config.apiUrl}product`).then(function(response) {
             setProducts(response.data.data);
         });
     }
     
     const deleteUser = (id) => {
-        axios.delete(`http://localhost/Furni/delete_product.php?id=${id}`).then(function(response){
+        axios.delete(`${global.config.apiUrl}product/delete/${id}`).then(function(response){
             getDatas();
         });
     }
@@ -38,7 +38,7 @@ export default function Product() {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost/Furni/create_product.php', inputs).then(function(response){
+        axios.post(`${global.config.apiUrl}product/create`, inputs).then(function(response){
             console.log(response.data)
             getDatas();
                 document.getElementById('modelbutton').click();
@@ -51,12 +51,10 @@ export default function Product() {
 
     /* for update */
 
-    function getSingleProduct(id) {
+    function getSingleProduct(d) {
         document.getElementById('modelbutton').click();
-        axios.get(`http://localhost/Furni/single_product.php?id=${id}`).then(function(response) {
-            setInputs(response.data);
-            setInputs(values => ({...values,"image":""}))
-        });
+        setInputs(d);
+        setInputs(values => ({...values,"image":""}))
     }
 
     return (

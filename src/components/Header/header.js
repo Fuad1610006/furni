@@ -112,19 +112,13 @@ function Header() {
                     <>
                       <NavLink to="/" className="dropdown-item" onClick={signout}>
                         Sign out
-                      </NavLink>
-                      <NavLink to="/dashboard" className="dropdown-item">
-                        Dashboard
-                      </NavLink>
+                      </NavLink>                    
                     </>
                   ) : (
                     <>
                       <NavLink to="/signin" className="dropdown-item">
                         Sign in
-                      </NavLink>
-                      <NavLink to="/register" className="dropdown-item">
-                        Register
-                      </NavLink>
+                      </NavLink>                    
                     </>
                   )}
                 </div>

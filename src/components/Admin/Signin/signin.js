@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Link } from "react-router-dom";
 import './signin.css';
 import { login } from "../Auth/auth";
 
@@ -36,9 +36,10 @@ function Signin() {
                             <input type="password" placeholder="Enter Password" name="password" onChange={handleChange} required/>
 
                             <button type="submit" className="submitBtn">Login</button>
-                            <label>
-                            <input type="checkbox" checked="checked" name="remember"/> Remember me
-                            </label>
+                            
+                            <Link to="/register">
+                                Register
+                          </Link>
                         </div>
 
                         <div className="container">

@@ -17,8 +17,6 @@ import Signin from './components/Admin/Signin/signin';
 import Register from './components/Admin/Register/register';
 import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
-import Dashboard from './components/Admin/Dashboard/dashboard';
-import Product from './components/Admin/Product/Product';
 
 function App() {
   
@@ -38,42 +36,16 @@ function App() {
           <Route path="/blogPage" element={<BlogPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/header" element={<Header />} />
-          <Route path="/footer" element={<Footer />} />
-          {/* <Route path="/checkout" element={<Checkout />} /> */}
+          <Route path="/footer" element={<Footer />} />        
           <Route path="/contact" element={<Contact />} />
-          <Route path="/shop" element={<Shop />} />
-          {/* <Route path="/product" element={<Product />} /> */}
+          <Route path="/shop" element={<Shop />} />         
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
-          {/* <Route path="/thankYou" element={<ThankYou />} /> */}
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/register" element={<Register />} />
           
-          <Route
-            path="/dashboard"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <Dashboard />
-              </Protected>
-            }
-          />
-          <Route
-            path="/product"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <Product />
-              </Protected>
-            }
-          />
-           {/* <Route
-            path="/cart"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <Cart />
-              </Protected>
-            }
-          /> */}
+         
           <Route
             path="/checkout"
             element={

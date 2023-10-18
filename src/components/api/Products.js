@@ -1,8 +1,6 @@
-const BASE_URL = 'http://localhost/Furni/';
-
 export const Products = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/product.php`);
+        const response = await fetch(`${global.config.apiUrl}product`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
