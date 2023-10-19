@@ -5,7 +5,7 @@ export const Products = async () => {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        return data;
+        return data.data;
     } catch (error) {
         throw new Error(`Error fetching products data: ${error.message}`);
     }

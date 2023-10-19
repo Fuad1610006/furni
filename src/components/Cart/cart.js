@@ -62,7 +62,7 @@ function Cart() {
                         <tr key={item.id}>
                           <td className="product-thumbnail">
                             <img
-                              src={item.image}
+                              src={`${global.config.apiUrl}${item.image}`}
                               alt="Product"
                               className="img-fluid"
                             />
