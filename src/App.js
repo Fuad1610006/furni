@@ -19,6 +19,7 @@ import Register from './components/Admin/Register/register';
 import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
 import Dashboard from './components/Admin/Dashboard/dashboard';
+import Coupon from './components/Admin/Coupon/coupon';
 function App() {
   
   const [isSignedIn, setIsSignedIn] = useState(() => {
@@ -76,6 +77,14 @@ function App() {
             element={
               <Protected isSignedIn={isSignedIn}>
                 <Product />
+              </Protected>
+            }
+          />
+          <Route
+            path="/coupon"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Coupon />
               </Protected>
             }
           />

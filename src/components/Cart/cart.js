@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/header';
 import Footer from '../Footer/footer';
-import { useCart } from 'react-use-cart'; // Import useCart
+import { useCart } from 'react-use-cart';
 import { Link } from 'react-router-dom';
+import { fetchCoupons } from '../api/fetchCoupons';
 
 function Cart() {
   const [couponCode, setCouponCode] = useState('');
-  const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const [availableCoupons, setAvailableCoupons] = useState([]);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
 
   const {
     isEmpty,
@@ -16,21 +18,32 @@ function Cart() {
     cartTotal,
   } = useCart();
 
+  useEffect(() => {
+    async function fetchAvailableCoupons() {
+      try {
+        const coupons = await fetchCoupons();
+        setAvailableCoupons(coupons);
+      } catch (error) {
+        console.error('Error fetching coupons:', error);
+      }
+    }
+
+    fetchAvailableCoupons();
+  }, []);
+
   const applyCoupon = () => {
-    // You can implement your coupon validation logic here.
-    // For simplicity, let's assume a coupon code "DISCOUNT10" for a 10% discount.
-    if (couponCode === 'DISCOUNT10') {
-      // Apply the discount here
-      setIsCouponApplied(true);
+    const selectedCoupon = availableCoupons.find((coupon) => coupon.code === couponCode);
+
+    if (selectedCoupon) {
+      setAppliedCoupon(selectedCoupon);
     } else {
-      // Coupon code is invalid
-      setIsCouponApplied(false);
+      setAppliedCoupon(null);
     }
   };
 
-  // Calculate the discounted total based on the coupon code as an integer
-  const discountedTotal = isCouponApplied
-    ? Math.round(cartTotal * 0.9) // 10% discount
+  // Calculate the discounted total based on the applied coupon
+  const discountedTotal = appliedCoupon
+    ? Math.round(cartTotal * (1 - appliedCoupon.discount / 100))
     : cartTotal;
 
   return (
@@ -62,7 +75,7 @@ function Cart() {
                         <tr key={item.id}>
                           <td className="product-thumbnail">
                             <img
-                              src={`${global.config.apiUrl}${item.image}`}
+                              src={`${global.config.apiUrl}${item.image}`}  
                               alt="Product"
                               className="img-fluid"
                             />
@@ -124,7 +137,7 @@ function Cart() {
                   <button className="btn btn-black btn-sm btn-block">Update Cart</button>
                 </div>
                 <div className="col-md-6">
-                <Link to="/shop" className="btn btn-outline-black btn-sm btn-block">Continue Shopping</Link>
+                  <Link to="/shop" className="btn btn-outline-black btn-sm btn-block">Continue Shopping</Link>
                 </div>
               </div>
               <div className="row">
@@ -149,7 +162,7 @@ function Cart() {
                     Apply Coupon
                   </button>
                 </div>
-                {isCouponApplied && (
+                {appliedCoupon && (
                   <div className="col-md-12 mt-3">
                     <div className="alert alert-success">
                       Coupon applied successfully! Discount has been applied.
@@ -179,9 +192,9 @@ function Cart() {
                       <span className="text-black">Discount</span>
                     </div>
                     <div className="col-md-6 text-right">
-                      {isCouponApplied ? (
+                      {appliedCoupon ? (
                         <strong className="text-black">
-                         ${cartTotal - discountedTotal}
+                          ${cartTotal - discountedTotal}
                         </strong>
                       ) : (
                         <span className="text-black">N/A</span>
