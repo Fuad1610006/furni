@@ -4,7 +4,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import Header from '../Header/header';
 import Footer from '../Footer/footer';
-import { Products } from '../api/Products';
+import { Products } from '../api/products';
 import { useCart } from 'react-use-cart';
 
 const Shop = (props) => {
