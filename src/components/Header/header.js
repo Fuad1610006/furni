@@ -118,6 +118,9 @@ function Header() {
                     <>
                       <NavLink to="/signin" className="dropdown-item">
                         Sign in
+                      </NavLink>     
+                      <NavLink to="/dashboard" className="dropdown-item">
+                        Dashboard
                       </NavLink>                    
                     </>
                   )}
