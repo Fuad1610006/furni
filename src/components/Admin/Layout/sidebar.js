@@ -8,7 +8,7 @@ function Sidebar() {
     return (
         <div className="dashboard-sidebar">
             <div className="dashboard-user-image">
-                <img src={`${global.config.apiUrl}+${userLogged.image}`} alt="user" />
+                <img src={`${global.config.apiUrl}${userLogged.image}`} alt="user" />
             </div>
             <Link to="#" className="navbar-brand">
                 {userLogged.name}
@@ -22,6 +22,9 @@ function Sidebar() {
             </Link>
             <Link to="/shop" className="dashboard-nav-link">
                 Shop
+            </Link>
+            <Link to="/coupon" className="dashboard-nav-link">
+                Coupon
             </Link>
             <Link to="/" className="dashboard-nav-link">
                 Home Page

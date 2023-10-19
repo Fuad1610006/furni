@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Footer from "../Layout/dashboardFooter";
 
-export default function Coupon() {
+export default function Order() {
   const [coupons, setCoupons] = useState([]);
   const [inputs, setInputs] = useState({
     id: "",

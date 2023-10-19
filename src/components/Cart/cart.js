@@ -132,14 +132,6 @@ function Cart() {
 
           <div className="row">
             <div className="col-md-6">
-              <div className="row mb-5">
-                <div className="col-md-6 mb-3 mb-md-0">
-                  <button className="btn btn-black btn-sm btn-block">Update Cart</button>
-                </div>
-                <div className="col-md-6">
-                  <Link to="/shop" className="btn btn-outline-black btn-sm btn-block">Continue Shopping</Link>
-                </div>
-              </div>
               <div className="row">
                 <div className="col-md-12">
                   <label className="text-black h4" htmlFor="coupon">
@@ -157,7 +149,7 @@ function Cart() {
                     onChange={(e) => setCouponCode(e.target.value)}
                   />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 py-2">
                   <button className="btn btn-black" onClick={applyCoupon}>
                     Apply Coupon
                   </button>
