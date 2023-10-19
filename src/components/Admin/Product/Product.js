@@ -9,13 +9,14 @@ export default function Product() {
         getDatas();
     }, []);
     function getDatas() {
-        axios.get(`${global.config.apiUrl}product`).then(function(response) {
+        axios.get(`${global.config.apiUrl}product`).then(function (response) {
+            console.log(response.data);
             setProducts(response.data.data);
         });
     }
-    
+
     const deleteUser = (id) => {
-        axios.delete(`${global.config.apiUrl}product/delete/${id}`).then(function(response){
+        axios.delete(`${global.config.apiUrl}product/delete/${id}`).then(function (response) {
             getDatas();
         });
     }
@@ -23,30 +24,30 @@ export default function Product() {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}));
+        setInputs(values => ({ ...values, [name]: value }));
     }
-    const onFileChange= (e) => {
+    const onFileChange = (e) => {
         let files = e.target.files;
         let fileReader = new FileReader();
         fileReader.readAsDataURL(files[0]);
- 
+
         fileReader.onload = (event) => {
             const name = "image";
             const value = event.target.result
-            setInputs(values => ({...values, [name]: value}));
+            setInputs(values => ({ ...values, [name]: value }));
         }
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`${global.config.apiUrl}product/create`, inputs).then(function(response){
+        axios.post(`${global.config.apiUrl}product/create`, inputs).then(function (response) {
             console.log(response.data)
             getDatas();
-                document.getElementById('modelbutton').click();
+            document.getElementById('modelbutton').click();
         });
     }
-    const clearData = ()=>{
-        setInputs(values => ({...values,"id":"", "name": "","price":"","image": ""}))
-    } 
+    const clearData = () => {
+        setInputs(values => ({ ...values, "id": "", "name": "", "price": "", "image": "" }))
+    }
 
 
     /* for update */
@@ -54,7 +55,7 @@ export default function Product() {
     function getSingleProduct(d) {
         document.getElementById('modelbutton').click();
         setInputs(d);
-        setInputs(values => ({...values,"image":""}))
+        setInputs(values => ({ ...values, "image": "" }))
     }
 
     return (
@@ -86,23 +87,32 @@ export default function Product() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((d, key) =>
+                                {products.length > 0 ?(
+                                products.map((d, key) =>
                                     <tr key={key}>
                                         <td>{d.id}</td>
-                                        <td>{d.name}</td>  
+                                        <td>{d.name}</td>
                                         <td>{d.price}</td>
-                                        <td><img src={d.image} alt="" width={50} /></td>
+                                        <td>
+                                            {d.image ? (
+                                                <img src={`${global.config.apiUrl}`+ d.image} alt={d.name} width={50} />
+                                            ) : (
+                                             <span>No Image</span>
+                                            )}
+                                        </td>
                                         <td>
                                             <a href="javascript:void(0)" className="btn btn-primary me-2" onClick={() => getSingleProduct(d.id)} >Edit</a>
                                             <a href="javascript:void(0)" className="btn btn-danger btn-xs" onClick={() => deleteUser(d.id)}>Delete</a>
                                         </td>
-                                    </tr>
+                                    </tr>)
+                                ):(
+                                    <p>No products available</p>
                                 )}
 
                             </tbody>
                         </table>
 
-                        
+
                         <div className="modal" id="myModal">
                             <div className="modal-dialog modal-lg">
                                 <div className="modal-content">
@@ -111,25 +121,25 @@ export default function Product() {
                                         <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
 
-                                
+
                                     <div className="modal-body">
-                                        <form onSubmit={handleSubmit}>
+                                        <form onSubmit={handleSubmit} encType="multipart/form-data">
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">Name</label>
                                                         <input value={inputs.name} type="text" className="form-control" name="name" onChange={handleChange} />
-                                                        <input value={inputs.id} type="hidden" name="id"/>
+                                                        <input value={inputs.id} type="hidden" name="id" />
                                                     </div>
                                                 </div>
-                                               
+
                                                 <div className="col-sm-4">
                                                     <div className="mb-3">
                                                         <label className="form-label">Price</label>
                                                         <input type="text" className="form-control" name="price" value={inputs.price} onChange={handleChange} />
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="col-sm-4">
                                                     <div className="mb-3">
                                                         <label className="form-label">Image</label>
@@ -142,12 +152,12 @@ export default function Product() {
                                                     <button type="submit" className="btn btn-primary">Submit</button>
                                                 </div>
                                                 <div className="col-sm-3">
-                                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
-                                            
 
-                                    </form>
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +165,7 @@ export default function Product() {
                     </div>
                 </div>
             </div>
-            
+
             <Footer />
         </div>
     )

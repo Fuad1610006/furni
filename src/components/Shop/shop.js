@@ -10,14 +10,20 @@ import { useCart } from 'react-use-cart';
 const Shop = (props) => {
   const [productData, setProductData] = useState([]);
   const { addItem, cartTotalItems } = useCart();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await Products();
+        console.log(data); // Log the data to check its structure
         setProductData(data);
+        setLoading(false);
       } catch (error) {
-        console.error(error.message);
+        console.error('Error fetching products:', error);
+        setError(error);
+        setLoading(false);
       }
     };
 
@@ -47,45 +53,44 @@ const Shop = (props) => {
 
       <div className="untree_co-section product-section before-footer-section">
         <div className="container">
-          <div className="row">
-            {productData.map((product, index) => (
-              <div className="col-12 col-md-4 col-lg-3 mb-5" key={index}>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleAddToCart(product); // Call the new handleAddToCart function
-                  }}
-                >
-                  <a className="product-item" href="./">
-                    <img
-                      src={product.image}
-                      className="img-fluid product-thumbnail"
-                      alt={product.name}
-                    />
-                    <h3 className="product-title">{product.name}</h3>
-                    <strong
-                      className="product-price"
-                      style={{ paddingRight: '5px' }}
-                    >
-                      ${product.price}
-                    </strong>
-                    <button
-                      type="submit"
-                      className="add-to-cart-button"
-                    >
-                      <FontAwesomeIcon icon={faShoppingCart} /> {/* Cart icon */}
-                    </button>
-                    {/* Display cart count notification */}
-                    {cartTotalItems > 0 && (
-                      <div className="cart-count-notification">
-                        <span>{cartTotalItems}</span>
-                      </div>
-                    )}
-                  </a>
-                </form>
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <p>Loading products...</p>
+          ) : error ? (
+            <p>Error: {error.message}</p>
+          ) : (
+            <div className="row">
+              {productData.map((product, index) => (
+                <div className="col-12 col-md-4 col-lg-3 mb-5" key={index}>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleAddToCart(product);
+                    }}
+                  >
+                    <a className="product-item" href={`/product/${product.id}`}>
+                      <img
+                        src={`${global.config.apiUrl}${product.image}`}
+                        className="img-fluid product-thumbnail"
+                        alt={product.name}
+                      />
+                      <h3 className="product-title">{product.name}</h3>
+                      <strong className="product-price" style={{ paddingRight: '5px' }}>
+                        ${product.price}
+                      </strong>
+                      <button type="submit" className="add-to-cart-button">
+                        <FontAwesomeIcon icon={faShoppingCart} />
+                      </button>
+                      {cartTotalItems > 0 && (
+                        <div className="cart-count-notification">
+                          <span>{cartTotalItems}</span>
+                        </div>
+                      )}
+                    </a>
+                  </form>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
