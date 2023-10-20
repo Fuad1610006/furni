@@ -1,17 +1,32 @@
-import React from 'react';
+import React,{useState} from 'react';
+import { Link, useNavigate} from 'react-router-dom'; // Import Link from React Router
+import { logout } from "../Auth/auth";
 import Sidebar from '../Layout/sidebar';
 import Footer from '../Layout/dashboardFooter';
+
 function Dashboard() {
     const userLogged = JSON.parse(localStorage.getItem("userdata"));
+    const navigate = useNavigate();
+
+    const [isSignedIn, setIsSignedIn] = useState(() => {
+        const userLogged = localStorage.getItem("access_token");
+        return userLogged || false;
+      });
+
+    const signout = () => {
+        setIsSignedIn(false);
+        logout();
+        navigate("/");
+      };
     return (
         <div>
             <Sidebar />
 
             <div className="dashboard-content">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">
+                    <Link to="/dashboard" className="navbar-brand"> {/* Use Link for Dashboard */}
                         Dashboard
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -26,14 +41,14 @@ function Dashboard() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link to="/profile" className="nav-link"> {/* Use Link for Profile */}
                                     Profile
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link to="/" className="nav-link" onClick={signout}>
                                     Logout
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -49,5 +64,7 @@ function Dashboard() {
         </div>
     );
 }
+
+
 
 export default Dashboard;

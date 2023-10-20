@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import './signin.css';
+import './adminPanel.css';
 import { login } from "../Auth/auth";
 
 function Signin() {
@@ -18,7 +18,7 @@ function Signin() {
         event.preventDefault();
         let check = await login(inputs);
         if(check)
-            navigate('/');
+            navigate('/dashboard');
         else
             alert("Sorry! Your email address or password is not correct.");
     }
@@ -37,11 +37,11 @@ function Signin() {
 
                             <button type="submit" className="submitBtn">Login</button>
                             
-                            <Link to="/register" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                            <Link to="/register"  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                                New user? Register here!
                            </Link>
-                           <Link to="/adminPanel"  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                                Log in to dashboard.
+                           <Link to="/signin"  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                                Sign in as an User/Customer.
                            </Link>
                         </div>
 
