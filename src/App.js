@@ -19,8 +19,8 @@ import Register from './components/Admin/Register/register';
 import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
 import Dashboard from './components/Admin/Dashboard/dashboard';
-import AdminPanel from './components/Admin/AdminPanel/adminPanel';
 import Coupon from './components/Admin/Coupon/coupon';
+
 function App() {
   
   const [isSignedIn, setIsSignedIn] = useState(() => {
@@ -47,8 +47,6 @@ function App() {
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/adminPanel" element={<AdminPanel />} />
-          
          
           <Route
             path="/checkout"

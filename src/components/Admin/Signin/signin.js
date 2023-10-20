@@ -40,9 +40,9 @@ function Signin() {
                             <Link to="/register" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                                New user? Register here!
                            </Link>
-                           <Link to="/adminPanel"  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                           {/* <Link to="/adminPanel"  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                                 Log in to dashboard.
-                           </Link>
+                           </Link> */}
                         </div>
 
                         {/* <div className="container">

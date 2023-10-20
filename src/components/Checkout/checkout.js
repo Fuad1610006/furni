@@ -1,14 +1,51 @@
 import React from 'react';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from '../Header/header';
 import Footer from '../Footer/footer';
-import { useCart } from 'react-use-cart'; // Import useCart
-import { Link } from 'react-router-dom';
+import { useCart } from 'react-use-cart'; 
 
 function Checkout() {
 	const { items } = useCart();
-
 	// Calculate the total price of items in the cart
 	const orderTotal = items.reduce((total, item) => total + (item.quantity * item.price), 0);
+	// const displayTotal = discountedTotal === 'N/A' ? orderTotal : discountedTotal;
+	const [billingDetails, setBillingDetails] = useState({
+    c_fname: "",
+    c_lname: "",
+    c_companyname: "",
+    c_address: "",
+    // ...other billing fields
+  });
+
+	const navigate = useNavigate(); 
+
+  const handlePlaceOrder = () => {
+    // Send a POST request to your API endpoint
+    axios
+      .post(`${global.config.apiUrl}checkout`, billingDetails)
+      .then((response) => {
+        // Check if the order was successfully placed in the response
+        if (response.data.success) {
+           navigate("/thankYou");
+        } else {
+          // Handle errors or show a message to the user
+          console.error("Failed to place the order:", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error placing the order:", error);
+      });
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setBillingDetails({
+      ...billingDetails,
+      [name]: value,
+    });
+  };
 
 	return (
 		<>
@@ -39,11 +76,11 @@ function Checkout() {
 								<div className="form-group row">
 									<div className="col-md-6">
 										<label for="c_fname" className="text-black">First Name <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_fname" name="c_fname" />
+										<input type="text" className="form-control" id="c_fname" name="c_fname" required/>
 									</div>
 									<div className="col-md-6">
 										<label for="c_lname" className="text-black">Last Name <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_lname" name="c_lname" />
+										<input type="text" className="form-control" id="c_lname" name="c_lname" required/>
 									</div>
 								</div>
 
@@ -57,7 +94,7 @@ function Checkout() {
 								<div className="form-group row">
 									<div className="col-md-12">
 										<label for="c_address" className="text-black">Address <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_address" name="c_address" placeholder="Street address" />
+										<input type="text" className="form-control" id="c_address" name="c_address" placeholder="Street address" required/>
 									</div>
 								</div>
 
@@ -71,7 +108,7 @@ function Checkout() {
 										<input type="text" className="form-control" id="c_state_country" name="c_state_country" />
 									</div>
 									<div className="col-md-6">
-										<label for="c_postal_zip" className="text-black">Posta / Zip <span className="text-danger">*</span></label>
+										<label for="c_postal_zip" className="text-black">Postal / Zip <span className="text-danger">*</span></label>
 										<input type="text" className="form-control" id="c_postal_zip" name="c_postal_zip" />
 									</div>
 								</div>
@@ -79,11 +116,11 @@ function Checkout() {
 								<div className="form-group row ">
 									<div className="col-md-6">
 										<label for="c_email_address" className="text-black">Email Address <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_email_address" name="c_email_address" />
+										<input type="text" className="form-control" id="c_email_address" name="c_email_address" required/>
 									</div>
 									<div className="col-md-6">
 										<label for="c_phone" className="text-black">Phone <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" />
+										<input type="text" className="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" required/>
 									</div>
 				
 								<div className="col-md-12">
@@ -118,9 +155,19 @@ function Checkout() {
 														<td className="text-black">${orderTotal}</td>
 													</tr>
 													<tr>
-														<td className="text-black font-weight-bold"><strong>Order Total</strong></td>
-														<td className="text-black font-weight-bold"><strong>${orderTotal}</strong></td>
+														<td className="text-black font-weight-bold"><strong>Discount</strong></td>
+														<td className="text-black">
+														$0
+														</td>
 													</tr>
+													<tr>
+														<td className="text-black font-weight-bold"><strong>Order Total</strong></td>
+														<td className="text-black font-weight-bold">
+														<strong>
+														<strong>${orderTotal}</strong>
+														</strong>
+													</td>
+												</tr>
 												</tbody>
 											</table>
 
@@ -154,11 +201,12 @@ function Checkout() {
 												</div>
 											</div>
 
-											<div className="form-group">
-												<Link to="/thankYou">
-												<button className="btn btn-black btn-lg py-3 btn-block" onclick="./">Place Order</button>
-												</Link>
-											</div>
+														<button
+															className="btn btn-black btn-lg py-3 btn-block"
+															onClick={handlePlaceOrder}
+														>
+															Place Order
+														</button>
 
 										</div>
 									</div>
