@@ -22,22 +22,33 @@ function Checkout() {
 	const navigate = useNavigate(); 
 
   const handlePlaceOrder = () => {
-    // Send a POST request to your API endpoint
-    axios
-      .post(`${global.config.apiUrl}checkout`, billingDetails)
-      .then((response) => {
-        // Check if the order was successfully placed in the response
-        if (response.data.success) {
-           navigate("/thankYou");
-        } else {
-          // Handle errors or show a message to the user
-          console.error("Failed to place the order:", response.data.error);
-        }
-      })
-      .catch((error) => {
-        console.error("Error placing the order:", error);
-      });
-  };
+		// Check if any required fields are empty
+		if (
+			!billingDetails.c_fname ||
+			!billingDetails.c_lname ||
+			!billingDetails.c_address ||
+			!billingDetails.c_email_address ||
+			!billingDetails.c_phone
+		) {
+			alert('Please fill out all required fields');
+			return;
+		}
+	
+		// Send a POST request to your API endpoint
+		axios
+			.post(`${global.config.apiUrl}checkout`, billingDetails)
+			.then((response) => {
+				if (response.data.success) {
+					navigate("/thankYou");
+				} else {
+					console.error("Failed to place the order:", response.data.error);
+				}
+			})
+			.catch((error) => {
+				console.error("Error placing the order:", error);
+			});
+	};
+	
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -76,7 +87,14 @@ function Checkout() {
 								<div className="form-group row">
 									<div className="col-md-6">
 										<label for="c_fname" className="text-black">First Name <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_fname" name="c_fname" required/>
+										<input
+										 type="text"
+										 className="form-control"
+										 id="c_fname"
+										name="c_fname" 
+										value={billingDetails.c_fname} 
+										onChange={handleInputChange}
+										 required/>
 									</div>
 									<div className="col-md-6">
 										<label for="c_lname" className="text-black">Last Name <span className="text-danger">*</span></label>

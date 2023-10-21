@@ -38,44 +38,53 @@ export default function Coupon() {
   };
 
   // Handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("coupon_code", inputs.coupon_code);
-    formData.append("discount", inputs.discount);
-
-    if (inputs.id) {
-      // Update an existing coupon
-      axios
-        .put(`${global.config.apiUrl}coupon/update/${inputs.id}`, formData)
-        .then(() => {
-          getDatas();
-          clearData();
-        });
-    } else {
-      // Create a new coupon
-      axios.post(`${global.config.apiUrl}coupon/create`, formData).then(() => {
-        getDatas();
-        clearData();
+ 
+    const handleSubmit = (event) => {
+      event.preventDefault();
+    
+      if (inputs.id) {
+        // Editing an existing coupon
+        axios
+          .put(`${global.config.apiUrl}coupon/update/${inputs.id}`, inputs)
+          .then(function (response) {
+            console.log(response.data);
+            getDatas();
+            document.getElementById('modelbutton').click();
+            clearData();
+          });
+      } else {
+        // Creating a new coupon
+        axios
+          .post(`${global.config.apiUrl}coupon/create`, inputs)
+          .then(function (response) {
+            console.log(response.data);
+            getDatas();
+            document.getElementById('modelbutton').click();
+            clearData();
+          });
+      }
+    };
+    
+    // Clear input fields
+    const clearData = () => {
+      setInputs({
+        id: "",
+        coupon_code: "",
+        discount: "",
       });
-    }
-  };
-
+    };
+    
   // Clear input fields
-  const clearData = () => {
-    setInputs({
-      id: "",
-      coupon_code: "",
-      discount: "",
-    });
-  };
+//   const clearData = () => {
+//     setInputs(values => ({ ...values, "id": "", "coupon_code": "", "discount": "" }))
+// }
 
   // Populate the form for editing a coupon
-  function getSingleCoupon(coupon) {
-    clearData(); // Clear previous input values
-    setInputs(coupon);
-  }
-
+  function getSingleProduct(d) {
+    document.getElementById('modelbutton').click();
+    setInputs(d);
+    setInputs(values => ({ ...values }))
+}
   return (
     <div>
       <div className="container">
@@ -113,23 +122,23 @@ export default function Coupon() {
               </thead>
               <tbody>
                 {coupons.length > 0 ? (
-                  coupons.map((coupon, key) => (
+                  coupons.map((d, key) => (
                     <tr key={key}>
-                      <td>{coupon.id}</td>
-                      <td>{coupon.coupon_code}</td>
-                      <td>{coupon.discount}</td>
+                      <td>{d.id}</td>
+                      <td>{d.coupon_code}</td>
+                      <td>{d.discount}</td>
                       <td>
                         <a
                           href="javascript:void(0)"
                           className="btn btn-primary me-2"
-                          onClick={() => getSingleCoupon(coupon)}
+                          onClick={() => getSingleProduct(d.id)}
                         >
                           Edit
                         </a>
                         <a
                           href="javascript:void(0)"
                           className="btn btn-danger btn-xs"
-                          onClick={() => deleteUser(coupon.id)}
+                          onClick={() => deleteUser(d.id)}
                         >
                           Delete
                         </a>
