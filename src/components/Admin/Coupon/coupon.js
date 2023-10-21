@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Footer from "../Layout/dashboardFooter";
-
+import Sidebar from '../Layout/sidebar';
 export default function Coupon() {
   const [coupons, setCoupons] = useState([]);
   const [inputs, setInputs] = useState({
@@ -70,6 +70,7 @@ export default function Coupon() {
 }
   return (
     <div>
+      <Sidebar />
       <div className="container">
         <div className="row">
           <div className="col-12">

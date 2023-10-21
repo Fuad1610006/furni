@@ -26,6 +26,9 @@ function Sidebar() {
             <Link to="/coupon" className="dashboard-nav-link">
                 Coupon
             </Link>
+            <Link to="/order" className="dashboard-nav-link">
+                Orders
+            </Link>
             <Link to="/" className="dashboard-nav-link">
                 Home Page
             </Link>

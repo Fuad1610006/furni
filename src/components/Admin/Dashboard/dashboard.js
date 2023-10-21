@@ -21,7 +21,7 @@ function Dashboard() {
     return (
         <div>
             <Sidebar />
-
+          
             <div className="dashboard-content">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <Link to="/dashboard" className="navbar-brand"> {/* Use Link for Dashboard */}

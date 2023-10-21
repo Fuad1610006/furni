@@ -1,106 +1,88 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Sidebar from '../Layout/sidebar';
 import Footer from "../Layout/dashboardFooter";
-import { useParams } from "react-router-dom";
 
+export default function Order() {
+    const [orders, setOrders] = useState([]);
 
-function Order() {
-const { orderId } = useParams();
-// Fetch the order details based on the orderId
-const [orderDetails, setOrderDetails] = useState({});
-useEffect(() => {
-  axios.get(`${global.config.apiUrl}order/${orderId}`).then((response) => {
-    if (response.data.success) {
-      const orderDetails = response.data.orderDetails;
-      // Set the order details in the component's state for rendering
-      setOrderDetails(orderDetails);
-    } else {
-      console.error("Failed to retrieve order details:", response.data.error);
+    useEffect(() => {
+        getOrders();
+    }, []);
+
+    function getOrders() {
+        // Use the fetch method to retrieve data
+        fetch(`${global.config.apiUrl}order`)
+            .then(response => response.json())
+            .then(data => {
+                setOrders(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     }
-  });
-}, [orderId]);
 
+    const deleteOrder = (id) => {
+        // Use the fetch method to delete data
+        fetch(`${global.config.apiUrl}order/delete/${id}`, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                getOrders();
+            })
+            .catch(error => {
+                console.error('Error deleting data:', error);
+            });
+    }
 
- 
-
-return (
-  <>
-  <div className="container">
-    <div className="row">
-      <div className="col-md-6">
-        <h2 className="h3 mb-3 text-black">Order Details</h2>
-        <div className="p-3 p-lg-5 border bg-white">
-          <div className="form-group row">
-            <div className="col-md-6">
-              <label htmlFor="c_fname" className="text-black">
-                First Name
-              </label>
-              <p>{orderDetails.c_fname}</p>
+    return (
+        <div>
+            <Sidebar />
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <h1>
+                            <small>Order List</small>
+                        </h1>
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Zip</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders.length > 0 ? (
+                                    orders.map((order, key) => (
+                                        <tr key={key}>
+                                            <td>{order.order_id}</td>
+                                            <td>{order.first_name}</td>
+                                            <td>{order.last_name}</td>
+                                            <td>{order.email}</td>
+                                            <td>{order.address}</td>
+                                            <td>{order.phone}</td>
+                                            <td>{order.zip}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" className="btn btn-danger btn-xs" onClick={() => deleteOrder(order.order_id)}>Delete</a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="8">No orders available</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div className="col-md-6">
-              <label htmlFor="c_lname" className="text-black">
-                Last Name
-              </label>
-              <p>{orderDetails.c_lname}</p>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_companyname" className="text-black">
-              Company Name
-            </label>
-            <p>{orderDetails.c_companyname}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_address" className="text-black">
-              Address
-            </label>
-            <p>{orderDetails.c_address}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_state_country" className="text-black">
-              State / Country
-            </label>
-            <p>{orderDetails.c_state_country}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_postal_zip" className="text-black">
-              Postal / Zip
-            </label>
-            <p>{orderDetails.c_postal_zip}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_email_address" className="text-black">
-              Email Address
-            </label>
-            <p>{orderDetails.c_email_address}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_phone" className="text-black">
-              Phone
-            </label>
-            <p>{orderDetails.c_phone}</p>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="c_order_notes" className="text-black">
-              Order Notes
-            </label>
-            <p>{orderDetails.c_order_notes}</p>
-          </div>
+            <Footer />
         </div>
-      </div>
-    </div>
-  </div>
-   <Footer />
-   </>
-)
+    );
 }
-
-export default Order;
-   
