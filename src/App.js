@@ -20,6 +20,7 @@ import { CartProvider } from "react-use-cart";
 import Protected from './components/Protected'
 import Dashboard from './components/Admin/Dashboard/dashboard';
 import Coupon from './components/Admin/Coupon/coupon';
+import Order from './components/Admin/Order/order';
 
 function App() {
   
@@ -85,6 +86,14 @@ function App() {
             element={
               <Protected isSignedIn={isSignedIn}>
                 <Coupon />
+              </Protected>
+            }
+          />
+           <Route
+            path="/order"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Order />
               </Protected>
             }
           />

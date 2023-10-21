@@ -41,28 +41,11 @@ export default function Coupon() {
  
     const handleSubmit = (event) => {
       event.preventDefault();
-    
-      if (inputs.id) {
-        // Editing an existing coupon
-        axios
-          .put(`${global.config.apiUrl}coupon/update/${inputs.id}`, inputs)
-          .then(function (response) {
-            console.log(response.data);
+        axios.post(`${global.config.apiUrl}coupon/create`, inputs).then(function (response) {
+            console.log(response.data)
             getDatas();
             document.getElementById('modelbutton').click();
-            clearData();
-          });
-      } else {
-        // Creating a new coupon
-        axios
-          .post(`${global.config.apiUrl}coupon/create`, inputs)
-          .then(function (response) {
-            console.log(response.data);
-            getDatas();
-            document.getElementById('modelbutton').click();
-            clearData();
-          });
-      }
+        });
     };
     
     // Clear input fields
