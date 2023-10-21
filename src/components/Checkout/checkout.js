@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/header';
@@ -7,56 +7,103 @@ import Footer from '../Footer/footer';
 import { useCart } from 'react-use-cart'; 
 
 function Checkout() {
-	const { items } = useCart();
-	// Calculate the total price of items in the cart
+	const { cartTotal, items,emptyCart  } = useCart();
+	// const [couponCode, setCouponCode] = useState("");
+	// const [couponDiscounts, setCouponDiscounts] = useState({});
+	// const [totalDiscount, setTotalDiscount] = useState(0);
+	// const [usedCoupons, setUsedCoupons] = useState([]);
+	const navigate = useNavigate();
+	// const applyCoupon = async () => {
+	//   console.log("Coupon code to apply:", couponCode);
+  
+	//   try {
+	// 	if (usedCoupons.includes(couponCode)) {
+	// 	  alert(`Coupon ${couponCode} has already been applied.`);
+	// 	  return;
+	// 	}
+  
+	// 	const data = await checkCoupon(couponCode);
+  
+	// 	if (data && data.discount_percentage) {
+	// 	  const updatedCouponDiscounts = { ...couponDiscounts };
+	// 	  updatedCouponDiscounts[couponCode] = 0;
+  
+	// 	  items.forEach((item) => {
+	// 		if (item.code && item.code === couponCode) {
+	// 		  const itemDiscount = (item.price * item.quantity * data.discount_percentage) / 100;
+  
+	// 		  console.log(`Item: ${item.name}, Coupon: ${item.code}`);
+	// 		  console.log(`Item Discount: $${itemDiscount.toFixed(2)}`);
+  
+	// 		  updatedCouponDiscounts[couponCode] += itemDiscount;
+	// 		  console.log(`Coupon ${couponCode} Total Discount: $${updatedCouponDiscounts[couponCode].toFixed(2)}`);
+	// 		}
+	// 	  });
+  
+	// 	  const newTotalDiscount = Object.values(updatedCouponDiscounts).reduce((acc, discount) => acc + discount, 0);
+  
+	// 	  console.log('Coupon Discounts:', updatedCouponDiscounts);
+	// 	  console.log('Total Discount Applied:', `$${newTotalDiscount.toFixed(2)}`);
+  
+	// 	  // Update usedCoupons array
+	// 	  setUsedCoupons([...usedCoupons, couponCode]);
+  
+	// 	  console.log("Used coupons after applying:", usedCoupons);
+  
+	// 	  setCouponDiscounts(updatedCouponDiscounts);
+	// 	  setTotalDiscount(newTotalDiscount);
+	// 	} else {
+	// 	  console.log('Coupon is not valid or does not provide a discount.');
+	// 	}
+	//   } catch (error) {
+	// 	console.error(error.message);
+	//   }
+	// };
+  
+	// const discountedTotal = cartTotal - totalDiscount;
 	const orderTotal = items.reduce((total, item) => total + (item.quantity * item.price), 0);
-	// const displayTotal = discountedTotal === 'N/A' ? orderTotal : discountedTotal;
-	const [billingDetails, setBillingDetails] = useState({
-    c_fname: "",
-    c_lname: "",
-    c_companyname: "",
-    c_address: "",
-    // ...other billing fields
-  });
-
-	const navigate = useNavigate(); 
-
-  const handlePlaceOrder = () => {
-		// Check if any required fields are empty
-		if (
-			!billingDetails.c_fname ||
-			!billingDetails.c_lname ||
-			!billingDetails.c_address ||
-			!billingDetails.c_email_address ||
-			!billingDetails.c_phone
-		) {
-			alert('Please fill out all required fields');
-			return;
+	const placeOrder = async () => {
+	 
+		try {
+		  const orderData = {
+			first_name: document.getElementById('firstName').value,
+			last_name: document.getElementById('lastName').value,
+			email: document.getElementById('email').value,
+			phone:  document.getElementById('phone').value,
+			address: document.getElementById('address').value,
+			district: document.getElementById('district').value,
+			zip: document.getElementById('zip').value,
+			order_notes: document.getElementById('order_notes').value,
+			items: items,
+			// sub_total: cartTotal.toFixed(2),
+			// discount: totalDiscount.toFixed(2),
+			total: orderTotal,
+		  };
+		  const response = await fetch(`${global.config.apiUrl}order/create`, {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(orderData), // Assuming 'inputs' contains the data you want to send
+		  });
+		  const data = await response.json();
+		  console.log(data);
+  
+		  if (data.status == 1) {
+			// Order was successfully placed
+			alert('Order placed successfully!');
+			emptyCart();
+			navigate('/thankYou');
+			// You can perform further actions, such as clearing the cart
+		  } else {
+			// Order placement failed
+			alert('Failed to place the order. Please try again.');
+		  }
+		} catch (error) {
+		  // Handle errors here, e.g., network issues or server errors
+		  console.error(error);
 		}
-	
-		// Send a POST request to your API endpoint
-		axios
-			.post(`${global.config.apiUrl}checkout`, billingDetails)
-			.then((response) => {
-				if (response.data.success) {
-					navigate("/thankYou");
-				} else {
-					console.error("Failed to place the order:", response.data.error);
-				}
-			})
-			.catch((error) => {
-				console.error("Error placing the order:", error);
-			});
 	};
-	
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setBillingDetails({
-      ...billingDetails,
-      [name]: value,
-    });
-  };
 
 	return (
 		<>
@@ -83,72 +130,71 @@ function Checkout() {
 						<div className="col-md-6 mb-5 mb-md-0">
 							<h2 className="h3 mb-3 text-black">Billing Details</h2>
 							<div className="p-3 p-lg-5 border bg-white">
-								
+								<form>
 								<div className="form-group row">
 									<div className="col-md-6">
-										<label for="c_fname" className="text-black">First Name <span className="text-danger">*</span></label>
+										<label for="firstName" className="text-black">First Name <span className="text-danger">*</span></label>
 										<input
 										 type="text"
 										 className="form-control"
-										 id="c_fname"
-										name="c_fname" 
-										value={billingDetails.c_fname} 
-										onChange={handleInputChange}
+										 id="firstName"
+										name="firstName" 
 										 required/>
 									</div>
 									<div className="col-md-6">
-										<label for="c_lname" className="text-black">Last Name <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_lname" name="c_lname" required/>
+										<label for="lastName" className="text-black">Last Name <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="lastName" name="lastName" required/>
 									</div>
 								</div>
 
-								<div className="form-group row">
+								{/* <div className="form-group row">
 									<div className="col-md-12">
 										<label for="c_companyname" className="text-black">Company Name </label>
 										<input type="text" className="form-control" id="c_companyname" name="c_companyname" />
 									</div>
-								</div>
+								</div> */}
 
 								<div className="form-group row">
 									<div className="col-md-12">
-										<label for="c_address" className="text-black">Address <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_address" name="c_address" placeholder="Street address" required/>
+										<label for="address" className="text-black">Address <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="address" name="address" placeholder="Street address" required/>
 									</div>
 								</div>
 
-								<div className="form-group mt-3">
+								{/* <div className="form-group mt-3">
 									<input type="text" className="form-control" placeholder="Apartment, suite, unit etc. (optional)" />
-								</div>
+								</div> */}
 
 								<div className="form-group row">
 									<div className="col-md-6">
-										<label for="c_state_country" className="text-black">State / Country <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_state_country" name="c_state_country" />
+										<label for="district" className="text-black">District <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="district" name="district" />
 									</div>
 									<div className="col-md-6">
-										<label for="c_postal_zip" className="text-black">Postal / Zip <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_postal_zip" name="c_postal_zip" />
+										<label for="zip" className="text-black">Postal / Zip <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="zip" name="zip" />
 									</div>
 								</div>
 
 								<div className="form-group row ">
 									<div className="col-md-6">
-										<label for="c_email_address" className="text-black">Email Address <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_email_address" name="c_email_address" required/>
+										<label for="email" className="text-black">Email Address <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="email" name="email" required/>
 									</div>
 									<div className="col-md-6">
-										<label for="c_phone" className="text-black">Phone <span className="text-danger">*</span></label>
-										<input type="text" className="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" required/>
+										<label for="phone" className="text-black">Phone <span className="text-danger">*</span></label>
+										<input type="text" className="form-control" id="phone" name="phone" placeholder="Phone Number" required/>
 									</div>
 				
 								<div className="col-md-12">
-									<label for="c_order_notes" className="text-black">Order Notes</label>
-									<textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" className="form-control" placeholder="Write your notes here..."></textarea>
+									<label for="order_notes" className="text-black">Order Notes</label>
+									<textarea name="order_notes" id="order_notes" cols="30" rows="5" className="form-control" placeholder="Write your notes here..."></textarea>
 								</div>
+								</div>						
+								</form>
 								</div>
-							</div>
 						</div>
-
+						
 						<div className="col-md-6">
 								<div className="row mb-5">
 									<div className="col-md-12">
@@ -221,7 +267,7 @@ function Checkout() {
 
 														<button
 															className="btn btn-black btn-lg py-3 btn-block"
-															onClick={handlePlaceOrder}
+															onClick={placeOrder}
 														>
 															Place Order
 														</button>
