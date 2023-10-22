@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../Header/header';
 import Footer from '../Footer/footer';
 import { useCart } from 'react-use-cart';
 import { Link } from 'react-router-dom';
-import { fetchCoupons } from '../api/fetchCoupons';
+import { checkCoupon } from '../api/check_coupon';
 
 function Cart() {
   const [couponCode, setCouponCode] = useState('');
-  const [availableCoupons, setAvailableCoupons] = useState([]);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponDiscounts, setCouponDiscounts] = useState({});
+  const [totalDiscount, setTotalDiscount] = useState(0);
 
   const {
     isEmpty,
@@ -18,33 +19,37 @@ function Cart() {
     cartTotal,
   } = useCart();
 
-  useEffect(() => {
-    async function fetchAvailableCoupons() {
-      try {
-        const coupons = await fetchCoupons();
-        setAvailableCoupons(coupons);
-      } catch (error) {
-        console.error('Error fetching coupons:', error);
+  const applyCoupon = async () => {
+    try {
+      if (appliedCoupon) {
+        alert('Coupon has already been applied.');
+        return;
       }
-    }
+      const data = await checkCoupon(couponCode);
+      if (data && data.discount_percentage) {
+        const itemDiscounts = {};
 
-    fetchAvailableCoupons();
-  }, []);
+        items.forEach((item) => {
+          if (item.code === couponCode) {
+            const itemDiscount = (item.price * item.quantity * data.discount_percentage) / 100;
+            itemDiscounts[item.id] = itemDiscount;
+          }
+        });
 
-  const applyCoupon = () => {
-    const selectedCoupon = availableCoupons.find((coupon) => coupon.code === couponCode);
-
-    if (selectedCoupon) {
-      setAppliedCoupon(selectedCoupon);
-    } else {
-      setAppliedCoupon(null);
+        const newTotalDiscount = Object.values(itemDiscounts).reduce((acc, discount) => acc + discount, 0);
+        setCouponDiscounts(itemDiscounts);
+        setTotalDiscount(newTotalDiscount);
+        setAppliedCoupon(couponCode);
+        setCouponCode('');
+      } else {
+        alert('Coupon is not valid or does not provide a discount.');
+      }
+    } catch (error) {
+      console.error('Error applying coupon:', error);
     }
   };
 
-  // Calculate the discounted total based on the applied coupon
-  const discountedTotal = appliedCoupon
-    ? Math.round(cartTotal * (1 - appliedCoupon.discount / 100))
-    : cartTotal;
+  const discountedTotal = cartTotal - totalDiscount;
 
   return (
     <>
@@ -75,7 +80,7 @@ function Cart() {
                         <tr key={item.id}>
                           <td className="product-thumbnail">
                             <img
-                              src={`${global.config.apiUrl}${item.image}`}  
+                              src={`${global.config.apiUrl}${item.image}`}
                               alt="Product"
                               className="img-fluid"
                             />
@@ -179,20 +184,16 @@ function Cart() {
                       <strong className="text-black">${cartTotal}</strong>
                     </div>
                   </div>
-                  <div className="row mb-3">
-                    <div className="col-md-6">
-                      <span className="text-black">Discount</span>
+                  {appliedCoupon && (
+                    <div className="row mb-3">
+                      <div className="col-md-6">
+                        <span className="text-black">Coupon Discount</span>
+                      </div>
+                      <div className="col-md-6 text-right">
+                        <strong className="text-black">${totalDiscount}</strong>
+                      </div>
                     </div>
-                    <div className="col-md-6 text-right">
-                      {appliedCoupon ? (
-                        <strong className="text-black">
-                          ${cartTotal - discountedTotal}
-                        </strong>
-                      ) : (
-                        <span className="text-black">N/A</span>
-                      )}
-                    </div>
-                  </div>
+                  )}
                   <div className="row mb-5">
                     <div className="col-md-6">
                       <span className="text-black">Total</span>

@@ -8,59 +8,9 @@ import { useCart } from 'react-use-cart';
 
 function Checkout() {
 	const { cartTotal, items,emptyCart  } = useCart();
-	// const [couponCode, setCouponCode] = useState("");
-	// const [couponDiscounts, setCouponDiscounts] = useState({});
-	// const [totalDiscount, setTotalDiscount] = useState(0);
-	// const [usedCoupons, setUsedCoupons] = useState([]);
+	
 	const navigate = useNavigate();
-	// const applyCoupon = async () => {
-	//   console.log("Coupon code to apply:", couponCode);
-  
-	//   try {
-	// 	if (usedCoupons.includes(couponCode)) {
-	// 	  alert(`Coupon ${couponCode} has already been applied.`);
-	// 	  return;
-	// 	}
-  
-	// 	const data = await checkCoupon(couponCode);
-  
-	// 	if (data && data.discount_percentage) {
-	// 	  const updatedCouponDiscounts = { ...couponDiscounts };
-	// 	  updatedCouponDiscounts[couponCode] = 0;
-  
-	// 	  items.forEach((item) => {
-	// 		if (item.code && item.code === couponCode) {
-	// 		  const itemDiscount = (item.price * item.quantity * data.discount_percentage) / 100;
-  
-	// 		  console.log(`Item: ${item.name}, Coupon: ${item.code}`);
-	// 		  console.log(`Item Discount: $${itemDiscount.toFixed(2)}`);
-  
-	// 		  updatedCouponDiscounts[couponCode] += itemDiscount;
-	// 		  console.log(`Coupon ${couponCode} Total Discount: $${updatedCouponDiscounts[couponCode].toFixed(2)}`);
-	// 		}
-	// 	  });
-  
-	// 	  const newTotalDiscount = Object.values(updatedCouponDiscounts).reduce((acc, discount) => acc + discount, 0);
-  
-	// 	  console.log('Coupon Discounts:', updatedCouponDiscounts);
-	// 	  console.log('Total Discount Applied:', `$${newTotalDiscount.toFixed(2)}`);
-  
-	// 	  // Update usedCoupons array
-	// 	  setUsedCoupons([...usedCoupons, couponCode]);
-  
-	// 	  console.log("Used coupons after applying:", usedCoupons);
-  
-	// 	  setCouponDiscounts(updatedCouponDiscounts);
-	// 	  setTotalDiscount(newTotalDiscount);
-	// 	} else {
-	// 	  console.log('Coupon is not valid or does not provide a discount.');
-	// 	}
-	//   } catch (error) {
-	// 	console.error(error.message);
-	//   }
-	// };
-  
-	// const discountedTotal = cartTotal - totalDiscount;
+	
 	const orderTotal = items.reduce((total, item) => total + (item.quantity * item.price), 0);
 	const placeOrder = async () => {
 	 
@@ -147,12 +97,7 @@ function Checkout() {
 									</div>
 								</div>
 
-								{/* <div className="form-group row">
-									<div className="col-md-12">
-										<label for="c_companyname" className="text-black">Company Name </label>
-										<input type="text" className="form-control" id="c_companyname" name="c_companyname" />
-									</div>
-								</div> */}
+								
 
 								<div className="form-group row">
 									<div className="col-md-12">
@@ -161,10 +106,7 @@ function Checkout() {
 									</div>
 								</div>
 
-								{/* <div className="form-group mt-3">
-									<input type="text" className="form-control" placeholder="Apartment, suite, unit etc. (optional)" />
-								</div> */}
-
+							
 								<div className="form-group row">
 									<div className="col-md-6">
 										<label for="district" className="text-black">District <span className="text-danger">*</span></label>
@@ -218,12 +160,12 @@ function Checkout() {
 														<td className="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
 														<td className="text-black">${orderTotal}</td>
 													</tr>
-													<tr>
+													{/* <tr>
 														<td className="text-black font-weight-bold"><strong>Discount</strong></td>
 														<td className="text-black">
 														$0
 														</td>
-													</tr>
+													</tr> */}
 													<tr>
 														<td className="text-black font-weight-bold"><strong>Order Total</strong></td>
 														<td className="text-black font-weight-bold">

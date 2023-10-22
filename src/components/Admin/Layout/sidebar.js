@@ -8,7 +8,7 @@ function Sidebar() {
     return (
         <div className="dashboard-sidebar">
             <div className="dashboard-user-image">
-                <img src={`${global.config.apiUrl}${userLogged.image}`} alt="user" />
+                <img src={`${global.config.apiUrl}upload/img/user/${userLogged.image}`} alt="user" />
             </div>
             <Link to="#" className="navbar-brand">
                 {userLogged.name}
